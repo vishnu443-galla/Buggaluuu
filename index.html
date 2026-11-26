@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>A Little Love Secret 💖 For My Buggalu</title>
+  
+  <!-- Google Fonts for romantic typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti for romantic bursts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Audio Player Element -->
+  <audio id="bgMusic" loop preload="auto">
+    <!-- If user drops romantic-music.mp3 in folder, it will play; otherwise Web Audio synthesizes lush romantic chords -->
+    <source src="romantic-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Background Particle Canvas -->
+  <canvas id="loveCanvas"></canvas>
+
+  <!-- Floating Romantic Music Disc Control -->
+  <div class="music-pill" id="musicPill" title="Romantic Music">
+    <div class="disc-wrapper" id="musicDisc">
+      <div class="disc-vinyl">
+        <span class="disc-center">❤️</span>
+      </div>
+    </div>
+    <div class="music-info">
+      <span class="music-label" id="musicStatusText">Play Music</span>
+      <div class="sound-wave" id="soundWave">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <button class="music-btn" id="musicToggleBtn" aria-label="Toggle Music">
+      <svg id="musicPlayIcon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+        <polygon points="5,3 19,12 5,21"></polygon>
+      </svg>
+      <svg id="musicPauseIcon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="display:none;">
+        <rect x="6" y="4" width="4" height="16"></rect>
+        <rect x="14" y="4" width="4" height="16"></rect>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Giant Heart Transition Overlay -->
+  <div class="heart-wipe-overlay" id="heartWipe">
+    <div class="heart-wipe-shape">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Flying Kiss Celebration Container -->
+  <div class="kiss-anim-overlay" id="kissOverlay">
+    <div class="kiss-wrapper">
+      <div class="big-kiss-emoji">💋</div>
+      <div class="flying-hearts-cluster" id="kissHeartsCluster"></div>
+      <div class="kiss-sparkle-text">Mwah! I Love You! 💕</div>
+    </div>
+  </div>
+
+  <!-- Main Container Wrapping All 4 Pages -->
+  <main class="app-viewport">
+
+    <!-- ==========================================
+         PAGE 1: FIRST LOVE LOCK (PIN: 1128)
+         ========================================== -->
+    <section class="page-view active" id="page1">
+      <div class="glass-card lock-card">
+        <!-- Floating Rose Accents -->
+        <div class="card-rose-accent top-left">🌹</div>
+        <div class="card-rose-accent bottom-right">🌹</div>
+
+        <!-- Beating Heart Animation -->
+        <div class="heart-hero-container">
+          <div class="pulse-ring ring-1"></div>
+          <div class="pulse-ring ring-2"></div>
+          <div class="pulse-ring ring-3"></div>
+          <div class="beating-heart">
+            <svg viewBox="0 0 24 24" fill="url(#rubyGradient)">
+              <defs>
+                <linearGradient id="rubyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ff0055" />
+                  <stop offset="50%" stop-color="#ff477e" />
+                  <stop offset="100%" stop-color="#d90429" />
+                </linearGradient>
+              </defs>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span class="heart-sparkle-badge">✨</span>
+          </div>
+        </div>
+
+        <h1 class="romantic-title">A Little Love Secret</h1>
+        <p class="romantic-subtitle">Enter the 4-digit code that opens my heart 🗝️</p>
+
+        <!-- PIN Display Slots -->
+        <div class="pin-display-wrap" id="pinDisplay">
+          <div class="pin-slot" data-index="0"><span></span></div>
+          <div class="pin-slot" data-index="1"><span></span></div>
+          <div class="pin-slot" data-index="2"><span></span></div>
+          <div class="pin-slot" data-index="3"><span></span></div>
+        </div>
+
+        <!-- Error & Feedback Banner -->
+        <div class="status-msg" id="pinErrorMsg"></div>
+
+        <!-- Touch / Click Keypad -->
+        <div class="keypad-grid" id="pinKeypad">
+          <button class="key-btn" data-num="1">1</button>
+          <button class="key-btn" data-num="2">2</button>
+          <button class="key-btn" data-num="3">3</button>
+          <button class="key-btn" data-num="4">4</button>
+          <button class="key-btn" data-num="5">5</button>
+          <button class="key-btn" data-num="6">6</button>
+          <button class="key-btn" data-num="7">7</button>
+          <button class="key-btn" data-num="8">8</button>
+          <button class="key-btn" data-num="9">9</button>
+          <button class="key-btn action-key" id="pinClearBtn" title="Clear">C</button>
+          <button class="key-btn" data-num="0">0</button>
+          <button class="key-btn action-key delete-key" id="pinDeleteBtn" title="Backspace">⌫</button>
+        </div>
+
+        <div class="hint-toggle">
+          <span class="hint-pill" id="pinHintBtn">💡 Need a sweet hint?</span>
+          <p class="hint-text" id="pinHintText" style="display:none;">Our special date... 11/28 💕</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PAGE 2: SECOND LOVE LOCK (NICKNAME)
+         ========================================== -->
+    <section class="page-view" id="page2">
+      <div class="glass-card question-card">
+        <div class="card-rose-accent top-left">💖</div>
+        <div class="card-rose-accent bottom-right">🌸</div>
+
+        <!-- Glowing Lock Emblem -->
+        <div class="emblem-container">
+          <div class="glowing-halo"></div>
+          <div class="emblem-icon">🔒</div>
+        </div>
+
+        <span class="step-tag">Love Lock Stage 2</span>
+        <h2 class="romantic-question">What is your cutest nick name?</h2>
+        <p class="romantic-subtitle">The sweetest name that makes your cheeks blush 🙈</p>
+
+        <form class="nickname-form" id="nicknameForm" onsubmit="return false;">
+          <div class="input-glow-wrapper">
+            <span class="input-prefix-icon">🥰</span>
+            <input 
+              type="text" 
+              id="nicknameInput" 
+              class="romantic-input" 
+              placeholder="Type your cutest nickname..." 
+              autocomplete="off" 
+              autocapitalize="words" 
+              required
+            >
+            <button type="button" class="clear-input-btn" id="clearNicknameBtn" aria-label="Clear">✕</button>
+          </div>
+
+          <div class="status-msg" id="nicknameErrorMsg"></div>
+
+          <button type="submit" class="romantic-btn primary-btn" id="nicknameSubmitBtn">
+            <span>Unlock My Heart 💖</span>
+            <div class="btn-shine"></div>
+          </button>
+        </form>
+
+        <div class="hint-toggle">
+          <span class="hint-pill" id="nicknameHintBtn">💡 Hint for my favorite cutie</span>
+          <p class="hint-text" id="nicknameHintText" style="display:none;">Starts with <b>B</b>... those chubby, sweet cheeks! (Buggalu) 🍓</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PAGE 3: LOVE LETTER
+         ========================================== -->
+    <section class="page-view" id="page3">
+      <div class="letter-scroll-wrapper">
+        <div class="parchment-card" id="loveLetterCard">
+          
+          <!-- Ornate Letter Floral Corners -->
+          <div class="floral-corner top-left-corner">❦</div>
+          <div class="floral-corner top-right-corner">❦</div>
+          <div class="floral-corner bottom-left-corner">❦</div>
+          <div class="floral-corner bottom-right-corner">❦</div>
+
+          <!-- Vintage Wax Seal Header -->
+          <div class="wax-seal-wrapper">
+            <div class="wax-seal">
+              <span class="seal-inner">V&V</span>
+            </div>
+            <div class="seal-ribbon left"></div>
+            <div class="seal-ribbon right"></div>
+          </div>
+
+          <!-- Letter Meta -->
+          <div class="letter-date">Written from the depths of my heart 💌</div>
+          <h2 class="letter-salutation" id="letterSalutation">My dear ammayai garu 🥹😻</h2>
+
+          <!-- The Complete Personal Love Letter Content Exactly as Provided -->
+          <div class="letter-body" id="letterBody">
+            <p>nitho unna prathi sec naku oka madurumayina gyapakkam 💭💗 okati kadu chalney ♾️ Kalisi chadivam📖Kalisi tirugamu👫Kalisi risk chesam 😘 Kalisi exams rasam🌚💗 ila chala chala aney count less buggaluu 💋🪄</p>
+            
+            <p>Naku nachi ista padi techukuna pream yeppataki duram kadu 🫂🤍 duram kanivanu 🤗 sare na Nv bhayapadaku nanna inti  dagara unna NV strong 💪 ga Happy 😊 gah undali 🫂🪄 sare na nv akkada happy ga untey ikkada nenu safe gah happy gah unta 🥺</p>
+            
+            <p>buggalu sorry buggalu ninnu e 4-1 antha koncham time evalekapoyanu 🥺 Enduko antey telidhu malli intiki velesaraki nv asalu thatukolev 😣nenu aslu undalenu 🫠 incase nv maripoyavu ani annav nijamey nenu change aiyianu kani adi dhaniki reason undi choodu nanna ❤️👀</p>
+            
+            <p>ila nunchi mana jounery chala thought and long distance relationship loo undlai 🥺🫂 naku Badhayatalu naa appulu 🫠 family probelms ani tirali appudey nenu ninnu intiki tisukoni Ravali 🫠appati varaku strong 💪 gah koncham clear gah 😅 happy ga 😊 mi amma ki thodu gah 🫂 undali yedavakudadhu yeppudu na 🥺 sare na naku ni laga ila cheyadam radu nanna 🥲🫠</p>
+            
+            <p>naa ninuchi niku gift yedi aiyina evagalanu antey adi manam pelli a 👫💑👰🤵💍idi okatey idi gift 🎁 and manam responsibility 🤗🫶💗 kuda your are my fav, special, bestie,bestfrd,lover, sreemathi,💗🌚🫶💭🤗💑🫂💍💋</p>
+          </div>
+
+          <!-- Letter Sign-off -->
+          <div class="letter-closing">
+            <span class="closing-phrase">Love you forever'end ever ♾️🪢💗🥹</span>
+            <div class="signature-name" id="letterSignature">misssss youuuuuuuuu buggaluuuuu🫂🪢💗🫠😘</div>
+          </div>
+
+          <!-- Heart Wax Stamp at Bottom -->
+          <div class="letter-bottom-hearts">
+            <span>💖</span><span>🌹</span><span>💖</span>
+          </div>
+
+          <!-- Optional Edit Letter Pill (so user can update or paste exact words if desired) -->
+          <div class="letter-actions">
+            <button class="subtle-pill-btn" id="editLetterBtn" title="Customize letter text">
+              ✏️ Personalize / Edit Letter
+            </button>
+          </div>
+        </div>
+
+        <!-- The Mandatory Button Below the Letter -->
+        <div class="letter-footer-action">
+          <button class="romantic-btn memories-btn" id="toMemoriesBtn">
+            <span class="btn-icon">✨</span>
+            <span class="btn-text">Pure love with lot of memories 💗</span>
+            <span class="btn-icon">✨</span>
+            <div class="btn-shine"></div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PAGE 4: OUR MEMORIES & GRAND SURPRISE
+         ========================================== -->
+    <section class="page-view" id="page4">
+      <div class="glass-card memories-card">
+        
+        <div class="card-rose-accent top-left">🎬</div>
+        <div class="card-rose-accent bottom-right">✨</div>
+
+        <span class="step-tag">Forever In My Heart</span>
+        <h2 class="romantic-title">Our Treasured Memories</h2>
+        <p class="romantic-subtitle">Every second with you is a moment frozen in gold 💫</p>
+
+        <!-- Prominently Featured Video Container in Given Aspect Ratio -->
+        <div class="video-frame-container" id="videoFrameContainer">
+          <div class="video-glow-effect"></div>
+          <video 
+            id="memoryVideo" 
+            class="romantic-video" 
+            controls 
+            playsinline 
+            preload="metadata"
+          >
+            <source src="vishnu video .mp4" type="video/mp4">
+            <source src="./vishnu%20video%20.mp4" type="video/mp4">
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support video playback.
+          </video>
+          
+          <!-- Video Overlay Play Sparkle Button (shown until started) -->
+          <div class="video-play-overlay" id="videoPlayOverlay">
+            <div class="play-pulse-circle">
+              <svg viewBox="0 0 24 24" width="34" height="34" fill="#ffffff">
+                <polygon points="5,3 19,12 5,21"></polygon>
+              </svg>
+            </div>
+            <span class="overlay-text">Tap to Play Our Video 💖</span>
+          </div>
+          
+          <div class="video-badge">
+            <span>🎥 Our Special Video</span>
+          </div>
+        </div>
+
+        <!-- Grand Centerpiece Button Under Video -->
+        <div class="video-action-area">
+          <button class="romantic-btn love-you-btn" id="loveYouSurpriseBtn">
+            <span class="heart-pulse-icon">💖</span>
+            <span class="btn-text">Love You 💋</span>
+            <span class="heart-pulse-icon">💖</span>
+            <div class="btn-aura-glow"></div>
+            <div class="btn-shine"></div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       PAGE 4: ELEGANT, CLEAR ROMANTIC SURPRISE POP-UP
+       ========================================== -->
+  <div class="surprise-modal-fullscreen" id="surpriseModal">
+    <!-- Starry & Heart Deep Romantic Atmosphere -->
+    <div class="surprise-backdrop-blur"></div>
+    
+    <!-- Gentle floating hearts in the background -->
+    <div class="floating-hearts-layer" id="surpriseHeartsLayer"></div>
+
+    <!-- Centerpiece Elegant Romantic Pop-up Card -->
+    <div class="surprise-card">
+      <!-- Clean Close Button in Top Corner -->
+      <button class="surprise-close-btn" id="closeSurpriseIconBtn" title="Back to video">✕</button>
+
+      <!-- Romantic Rose Accents on Card Corners -->
+      <div class="card-rose-accent top-left">🌹</div>
+      <div class="card-rose-accent bottom-right">💋</div>
+
+      <!-- Glowing Heart Header -->
+      <div class="surprise-heart-burst">
+        <div class="giant-pulsing-heart">❤️</div>
+      </div>
+      
+      <!-- Clear, Bold, Romantic Message -->
+      <h1 class="grand-love-title">
+        <span class="glow-word">I</span>
+        <span class="glow-word">LOVE</span>
+        <span class="glow-word">YOU</span>
+      </h1>
+      
+      <div class="grand-sub-title">SO MUCH, BUGGALU! 💋</div>
+      
+      <div class="surprise-divider">
+        <span>💕</span>
+        <hr>
+        <span>💕</span>
+      </div>
+
+      <p class="grand-love-quote">
+        "You are my whole universe, my every heartbeat, and the greatest gift life could ever give me. No matter what, my hand is forever yours."
+      </p>
+
+      <div class="surprise-signature">
+        <span class="sign-note">Forever & Always Yours,</span>
+        <div class="sign-name">Vishnu ❤️</div>
+      </div>
+
+      <!-- Clear, Intuitive Action Buttons -->
+      <div class="surprise-btn-group">
+        <button class="romantic-btn primary-btn" id="burstMoreLoveBtn">
+          <span>💖 Shower More Love!</span>
+          <div class="btn-shine"></div>
+        </button>
+        <button class="romantic-btn secondary-btn" id="closeSurpriseBtn">
+          <span>🎥 Watch Our Video Again</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Editing / Customizing the Love Letter -->
+  <div class="letter-modal-backdrop" id="letterEditModal" style="display:none;">
+    <div class="letter-modal-card">
+      <div class="modal-header">
+        <h3>💌 Personalize Your Love Letter</h3>
+        <button class="close-modal-btn" id="closeLetterEditBtn">✕</button>
+      </div>
+      <p class="modal-desc">Paste your complete personal letter here. It saves instantly on this device!</p>
+      <div class="modal-input-group">
+        <label>Salutation (e.g. My Dearest Buggalu,)</label>
+        <input type="text" id="editSalutationInput" class="romantic-input">
+      </div>
+      <div class="modal-input-group">
+        <label>Letter Paragraphs</label>
+        <textarea id="editBodyInput" class="romantic-textarea" rows="8"></textarea>
+      </div>
+      <div class="modal-input-group">
+        <label>Signature (e.g. Vishnu 💋)</label>
+        <input type="text" id="editSignatureInput" class="romantic-input">
+      </div>
+      <div class="modal-actions">
+        <button class="subtle-outline-btn" id="resetDefaultLetterBtn">Reset to Default</button>
+        <button class="romantic-btn primary-btn" id="saveCustomLetterBtn">Save Letter 💖</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="audio.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
